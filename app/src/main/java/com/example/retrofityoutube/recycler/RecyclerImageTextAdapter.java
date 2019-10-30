@@ -1,24 +1,24 @@
 package com.example.retrofityoutube.recycler;
 
 import android.content.Context;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import androidx.recyclerview.widget.RecyclerView;
-
+import com.bumptech.glide.Glide;
 import com.example.retrofityoutube.R;
 
 import java.util.ArrayList;
 
 public class RecyclerImageTextAdapter extends RecyclerView.Adapter<RecyclerImageTextAdapter.ViewHolder>{
     private ArrayList<RecyclerItem> mData = null ;
+    Context context;
 
-
-    RecyclerImageTextAdapter(ArrayList<RecyclerItem> list) {
+    RecyclerImageTextAdapter(ArrayList<RecyclerItem> list, Context context) {
         mData = list ;
+        this.context = context;
     }
 
 
@@ -38,9 +38,7 @@ public class RecyclerImageTextAdapter extends RecyclerView.Adapter<RecyclerImage
     public void onBindViewHolder(RecyclerImageTextAdapter.ViewHolder holder, int position) {
 
         RecyclerItem item = mData.get(position) ;
-
-        holder.icon.setImageDrawable(item.getIcon()) ;
-        holder.channalimage.setImageDrawable(item.getChan()) ;
+        Glide.with(context).load(item.getThumnail()).into(holder.thumnailimage);
         holder.title.setText(item.getTitle()) ;
         holder.channalname.setText(item.getDesc()) ;
         holder.count.setText(item.getCount()) ;
@@ -55,8 +53,7 @@ public class RecyclerImageTextAdapter extends RecyclerView.Adapter<RecyclerImage
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView icon ;
-        ImageView channalimage ;
+        ImageView thumnailimage ;
         TextView title ;
         TextView channalname ;
         TextView count;
@@ -64,8 +61,7 @@ public class RecyclerImageTextAdapter extends RecyclerView.Adapter<RecyclerImage
         ViewHolder(View itemView) {
             super(itemView) ;
 
-            icon = itemView.findViewById(R.id.icon) ;
-            channalimage = itemView.findViewById(R.id.channalimage) ;
+            thumnailimage = itemView.findViewById(R.id.thumnailimage) ;
             title = itemView.findViewById(R.id.title) ;
             channalname = itemView.findViewById(R.id.channalname) ;
             count = itemView.findViewById(R.id.count) ;
